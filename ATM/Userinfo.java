@@ -3,45 +3,59 @@ import java.util.ArrayList;
 public class Userinfo {
    private String user;
    private String pass;
-   private double balance=0;
-   private  ArrayList<String> Transaction=new ArrayList<String>();
+   private double balance = 0;
+   private ArrayList<String> Transaction = new ArrayList<String>();
+   boolean threat=false;
 
-
-public ArrayList<String>  getTransaction(){
-return this.Transaction;
+   public void setThreat(boolean threat) {
+       this.threat = threat;
+   }
+public boolean getThreat(){
+   return this.threat;
 }
+
+   public Userinfo() {
+
+   }
+
+   public Userinfo(String user, String pass) {
+      this.user = user;
+      this.pass = pass;
+   }
+
+   public ArrayList<String> getTransaction() {
+      return Transaction;
+   }
 
    public double getBalance() {
       return balance;
-  }
-  public void setBalance(double balance) {
-      this.balance=balance;
-  }
-
-   public void setUser(String user){
-this.user=user;
    }
 
-   public void setPass(String pass){
-    this.pass=pass;
-       }
+   public void setBalance(double balance) {
+      this.balance = balance;
+   }
+
    @Override
-   public String toString(){
-    String user = this.user;
-    String pass=this.pass;
-    return user+" "+pass;
+
+   public String toString() {
+      return this.user;
    }
-public String getUser(){
-    return this.user;
 
-}
-public String getpass(){
-   return this.pass;
+   public String getUser() {
+      return this.user;
 
-}
-public void setpass(String p){
-   this.pass=p;
+   }
 
-}
-    
+   public String getPass() {
+      return this.pass;
+
+   }
+
+   public void setPass(String p) {
+      this.pass = p;
+
+   }
+
+   
+
 }

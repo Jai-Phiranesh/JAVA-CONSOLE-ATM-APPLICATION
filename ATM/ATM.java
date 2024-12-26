@@ -1,41 +1,71 @@
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 public class ATM {
-    public static ArrayList<Userinfo> userlist=new ArrayList<Userinfo>();
-    public static void  setArr(Userinfo ob){
+    private static ArrayList<Userinfo> userlist = new ArrayList<Userinfo>();
+    private static ArrayList<Admininfo> adminlist = new ArrayList<Admininfo>();
+    private static ArrayList<Notes> currencynotes = new ArrayList<Notes>();
+    private static ArrayList<Transaction> transaction = new ArrayList<Transaction>();
+
+    private static double atmcash;
+
+    public static ArrayList<Admininfo> getAdminlist() {
+        return adminlist;
+    }
+
+    public static ArrayList<Transaction> getTransaction() {
+        return transaction;
+    }
+    public static void iniCurrencynotes() {
+        Notes o1 = new Ru2000(0, "2000");
+        Notes o2 = new Ru500(0, "500");
+        Notes o3 = new Ru200(0, "200");
+        Notes o4 = new Ru100(0, "100");
+        currencynotes.add(o1);
+        currencynotes.add(o2);
+        currencynotes.add(o3);
+        currencynotes.add(o4);
+    }
+    public static void setCurrencynotes(ArrayList<Notes> upcurrencynotes) {
+        ATM.currencynotes=upcurrencynotes;
+    }
+
+    public static double getatmcash() {
+        return atmcash;
+    }
+
+    public static void setatmcash(double d) {
+        atmcash = d;
+    }
+
+    public static void setAdminlist(Admininfo ob) {
+        adminlist.add(ob);
+
+    }
+
+    public static void setArr(Userinfo ob) {
         userlist.add(ob);
 
     }
-    public static ArrayList<Userinfo>  getArr(){
+
+    public static ArrayList<Notes> getCurrencynotes() {
+        return currencynotes;
+    }
+
+    public static ArrayList<Userinfo> getUserlist() {
         return userlist;
-
     }
-    public static int index(Userinfo ob){
-        int in=userlist.indexOf(ob);
-        return in;
 
-    }
-    static void start(){
-        //Useraction ub = new Useraction();
-           
-         
-        System.out.println("WELCOME");
-        ATM:while(true){
-            System.out.println("Enter the admin or user or exit ");
-            Scanner ob=new Scanner(System.in);
-            String in=ob.nextLine();
-            if(in.equals("user")){
-                Useraction.login();
 
+    public Userinfo getusercurrentOb(String name){
+        
+        for(Userinfo cru:getUserlist()){
+            if(name.equals(cru.getUser())){
+                return cru;
             }
-            else if(in.equals("admin")){
-                Adminaction.login();
-            }
-            else if(in.equals("exit")){
-                break ATM;
-            }
-            
-        }
+      
+          
+        } return null;
     }
+
 }
