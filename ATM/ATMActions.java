@@ -35,7 +35,7 @@ public class ATMActions {
                 if(a==null){
                     System.out.println("No Users Found");
                 }
-                else if(a.getThreat()==true){
+                else if(a.getUser()==null){
                     System.out.println("Wrong password");
                 }
                 else{
@@ -127,8 +127,7 @@ public class ATMActions {
                             return ob;
 
                         } else if (i == 2) {
-                            ob.setThreat(true);
-                            return ob;
+                            return new Admininfo(null,null);
                             
                         }
                     }

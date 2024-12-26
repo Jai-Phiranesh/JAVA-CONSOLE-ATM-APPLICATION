@@ -1,15 +1,19 @@
 
 public class Admininfo {
-    private static String user = "1";
-    private static String pass = "1";
-    boolean threat=false;
+    private  String user = "1";
+    private  String pass = "1";
+    
 
-    public void setThreat(boolean threat) {
-        this.threat = threat;
+    public Admininfo(String u,String p){
+        this.user=u;
+        this.pass=p;
     }
-    public boolean getThreat(){
-        return this.threat;
-     }
+
+
+    Admininfo(){
+
+    }
+    
      
 
     public  String getUser() {
