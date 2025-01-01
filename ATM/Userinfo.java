@@ -1,61 +1,48 @@
-import java.util.ArrayList;
 
-public class Userinfo {
-   private String user;
-   private String pass;
-   private double balance = 0;
-   private ArrayList<String> Transaction = new ArrayList<String>();
-   boolean threat=false;
+public class Userinfo {//pojo class
+   private String user;  // Username for the user
+   private String pass;  // Password for the user
+   private double balance = 0;  // Account balance 
 
-   public void setThreat(boolean threat) {
-       this.threat = threat;
-   }
-public boolean getThreat(){
-   return this.threat;
-}
-
+   // Default constructor to create object
    public Userinfo() {
 
    }
 
+  
    public Userinfo(String user, String pass) {
-      this.user = user;
-      this.pass = pass;
+      this.user = user;  // Set the username
+      this.pass = pass;  // Set the password
    }
 
-   public ArrayList<String> getTransaction() {
-      return Transaction;
-   }
-
+  
    public double getBalance() {
-      return balance;
-   }
-
-   public void setBalance(double balance) {
-      this.balance = balance;
-   }
-
-   @Override
-
-   public String toString() {
-      return this.user;
-   }
-
-   public String getUser() {
-      return this.user;
-
-   }
-
-   public String getPass() {
-      return this.pass;
-
-   }
-
-   public void setPass(String p) {
-      this.pass = p;
-
+      return balance;  // Return the account balance
    }
 
    
+   public void setBalance(double balance) {
+      this.balance = balance;  // Set the account balance
+   }
 
+   // Override the toString method to return the username as a string(Object class tostring overrided)
+   @Override
+   public String toString() {
+      return this.user;  // Return the user's name
+   }
+
+  
+   public String getUser() {
+      return this.user;  // Return the username
+   }
+
+   
+   public String getPass() {
+      return this.pass;  // Return the password
+   }
+
+   
+   public void setPass(String p) {
+      this.pass = p;  // Set the new password
+   }
 }
