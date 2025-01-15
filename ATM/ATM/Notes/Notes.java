@@ -1,11 +1,11 @@
 package ATM.Notes;// Class representing a currency note like 500,200,2000,100 and its common fields
 
-public class Notes implements Cloneable {
+public  class Notes implements Cloneable {
     private String note;  // Denomination of the note (e.g., "100", "500")
     private long count;   // Number of notes available
 
 
-   protected Notes(String note,long count){
+   protected Notes(String note,long count){//protected so that we no cannot create object outside package
         this.note=note;
      this.count=count;
     }

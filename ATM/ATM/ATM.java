@@ -12,12 +12,6 @@ public class ATM {  // atm pojo class handle the fields
 
     private static double atmcash;  // variable to store the total cash available in the ATM.
 
-    // returns the list of admins.
-//    public static ArrayList<Admininfo> getAdminlist() {
-//        return adminlist;
-//    }
-
-    // returns the list of transactions.
 
 
     // this method initializes the currency notes in the ATM with 0 count for each denomination.
@@ -51,25 +45,11 @@ public class ATM {  // atm pojo class handle the fields
         atmcash = d;  // update the total cash in the ATM.
     }
 
-    // adds a new admin to the admin list.
-//    public static void setAdminlist(Admininfo ob) {
-//        adminlist.add(ob);  // add admin to the list.
-//    }
-//
-//    // adds a new user to the user list.
-//    public static void setArr(Userinfo ob) {
-//        userlist.add(ob);  // add user to the list.
-//    }
 
     // returns the list of available currency notes in the ATM.
     public static ArrayList<Notes> getCurrencynotes() {
         return currencynotes;
     }
-
-    // returns the list of users in the ATM system.
-//    public static ArrayList<Userinfo> getUserlist() {
-//        return userlist;
-//    }
 
     // this method returns a user's current object based on their username.
     public Userinfo getusercurrentOb(String name) {

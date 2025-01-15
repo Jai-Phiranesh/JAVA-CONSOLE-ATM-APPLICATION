@@ -7,8 +7,8 @@ public class Userinfo extends Account {//pojo class
    private static ArrayList<Transaction> usertransaction = new ArrayList<Transaction>();
 
 
-   public Userinfo(String id,String pass,double balance) {
-       super(id,pass);
+   public Userinfo(String id,String password,double balance) {
+       super(id,password);
        this.balance=balance;
 
    }

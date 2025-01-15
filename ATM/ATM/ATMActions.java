@@ -15,34 +15,34 @@ public class ATMActions {  // this class contains actions related to the atm sys
         while (true) {  // this loop keeps running until the user chooses to exit.
             System.out.println("enter the choice admin or user or exit: ");  // ask for input from user.
 
-            Scanner sob = new Scanner(System.in);  // scanner to get user input.
-            String in = sob.nextLine();  // get input.
+            Scanner scanner = new Scanner(System.in);  // scanner to get user input.
+            String inputUSerorAdmin = scanner.nextLine();  // get input.
            
-            Useraction uaob = new Useraction();  // create an object for user actions.
-            Adminaction aaob = new Adminaction();  // create an object for admin actions.
+            Useraction userAction = new Useraction();  // create an object for user actions.
+            Adminaction adminAction = new Adminaction();  // create an object for admin actions.
            // set the admin list.
 
-            if (in.equals("user")) {  // if user chooses 'user'.
-                Account u = (Account) Action.login("user", sob);  // login as user.
-                if (u == null) {  // if no user found.
+            if (inputUSerorAdmin.equals("user")) {  // if user chooses 'user'.
+                Account currentUser = (Account) Action.login("user", scanner);  // login as user.
+                if (currentUser == null) {  // if no user found.
                     System.out.println("no users found");
-                } else if (u.getId() == null) {  // if wrong password.
+                } else if (currentUser.getId() == null) {  // if wrong password.
                     System.out.println("wrong password");
                 } else {
-                    Useraction.operations((Userinfo) u, uaob, sob);  // call user operations.
+                    Useraction.operations((Userinfo) currentUser, userAction, scanner);  // call user operations.
                 }
 
-            } else if (in.equals("admin")) {  // if user chooses 'admin'.
+            } else if (inputUSerorAdmin.equals("admin")) {  // if user chooses 'admin'.
                  // set the admin list again.
-                Account a = (Account) Action.login("admin", sob);  // login as admin.
-                if (a == null) {  // if no admin found.
+                Account currentAdmin = (Account) Action.login("admin", scanner);  // login as admin.
+                if (currentAdmin == null) {  // if no admin found.
                     System.out.println("no users found");
-                } else if (a.getId() == null) {  // if wrong password.
+                } else if (currentAdmin.getId() == null) {  // if wrong password.
                     System.out.println("wrong password");
                 } else {
-                    Adminaction.operations((Admininfo) a, aaob, sob);  // call admin operations.
+                    Adminaction.operations((Admininfo) currentAdmin, adminAction, scanner);  // call admin operations.
                 }
-            } else if (in.equals("exit")) {  // if user wants to exit.
+            } else if (inputUSerorAdmin.equals("exit")) {  // if user wants to exit.
                 break ATM;  // exit the loop.
             } else {  // if invalid input.
                 System.out.println("invalid input:");  // display error message.
@@ -60,15 +60,15 @@ public class ATMActions {  // this class contains actions related to the atm sys
         long cur500 = 0;  // store count of 500 notes.
         long cur200 = 0;  // store count of 200 notes.
         long cur100 = 0;  // store count of 100 notes.
-        for (Notes n : ATM.getCurrencynotes()) {  // loop through all currency notes.
-            if (no100.equals(n.getNotes())) {
-                cur100 = n.getCount();  // get count of 100 notes.
-            } else if (no500.equals(n.getNotes())) {
-                cur500 = n.getCount();  // get count of 500 notes.
-            } else if (no200.equals(n.getNotes())) {
-                cur200 = n.getCount();  // get count of 200 notes.
-            } else if (no2000.equals(n.getNotes())) {
-                cur2000 = n.getCount();  // get count of 2000 notes.
+        for (Notes notes : ATM.getCurrencynotes()) {  // loop through all currency notes.
+            if (no100.equals(notes.getNotes())) {
+                cur100 = notes.getCount();  // get count of 100 notes.
+            } else if (no500.equals(notes.getNotes())) {
+                cur500 = notes.getCount();  // get count of 500 notes.
+            } else if (no200.equals(notes.getNotes())) {
+                cur200 = notes.getCount();  // get count of 200 notes.
+            } else if (no2000.equals(notes.getNotes())) {
+                cur2000 = notes.getCount();  // get count of 2000 notes.
             }
         }
 
@@ -78,29 +78,26 @@ public class ATMActions {  // this class contains actions related to the atm sys
     }
 
     // this method checks if a user exists and if the password is correct.
-    public static Account checkuser(String id, Scanner sob) throws CloneNotSupportedException {
+    public static Account checkuser(String id, Scanner scanner) throws CloneNotSupportedException {
 
 
-        for (Account ob : ATM.getAccountlist()) {
-            if (ob instanceof Userinfo) {
-
-
-
+        for (Account account : ATM.getAccountlist()) {
+            if (account instanceof Userinfo) {
 
 
         // loop through all users.
-        if (id.equals(ob.getId())) {  // if user ID matches.
+        if (id.equals(account.getId())) {  // if user ID matches.
 
             System.out.println("enter the password :");  // ask for password.
-            String inp = sob.nextLine();  // get user input for password.
+            String inputPassword = scanner.nextLine();  // get user input for password.
             for (int i = 0; i < 3; i++) {  // allow 3 attempts for password.
-                if (inp.equals(ob.getPassword())) {  // if password matches.
-                    return ob;  // return user info.
+                if (inputPassword.equals(account.getPassword())) {  // if password matches.
+                    return account;  // return user info.
                 } else {
                     System.out.println("wrong pass try again :");  // if password is wrong.
-                    inp = sob.nextLine();  // prompt for password again.
-                    if (inp.equals(ob.getPassword())) {  // if password matches after retry.
-                        return ob;
+                    inputPassword = scanner.nextLine();  // prompt for password again.
+                    if (inputPassword.equals(account.getPassword())) {  // if password matches after retry.
+                        return account;
                     } else if (i == 2) {  // if user fails 3 times.
                         return new Userinfo(null, null, 0);  // return a blank user object.
                     }
@@ -112,25 +109,25 @@ public class ATMActions {  // this class contains actions related to the atm sys
     }
 
     // this method checks if an admin exists and if the password is correct.
-    public static Account checkadmin(String id, Scanner sob) throws CloneNotSupportedException {
+    public static Account checkadmin(String id, Scanner scanner) throws CloneNotSupportedException {
 
 
-        for (Account ob : ATM.getAccountlist()) {
-            if (ob instanceof Admininfo) {
+        for (Account account : ATM.getAccountlist()) {
+            if (account instanceof Admininfo) {
 
 
         // if admin ID matches.
 
         System.out.println("enter the password :");  // ask for password.
-        String inp = sob.nextLine();  // get input for password.
+        String inputPassword = scanner.nextLine();  // get input for password.
         for (int i = 0; i < 3; i++) {  // allow 3 attempts for password.
-            if (inp.equals(ob.getPassword())) {  // if password matches.
-                return ob;  // return admin info.
+            if (inputPassword.equals(account.getPassword())) {  // if password matches.
+                return account;  // return admin info.
             } else {
                 System.out.println("wrong pass try again :");  // if wrong password.
-                inp = sob.nextLine();  // prompt for password again.
-                if (inp.equals(ob.getPassword())) {  // if password matches after retry.
-                    return ob;
+                inputPassword = scanner.nextLine();  // prompt for password again.
+                if (inputPassword.equals(account.getPassword())) {  // if password matches after retry.
+                    return account;
                 } else if (i == 2) {  // if failed 3 times.
                     return new Admininfo(null, null);  // return a blank admin object.
                 }}}
@@ -148,8 +145,8 @@ public class ATMActions {  // this class contains actions related to the atm sys
 
     // this method shows the current available notes in the atm.
     public static void currentnotes() {
-        for (Notes n : ATM.getCurrencynotes()) {  // loop through all notes.
-            System.out.println(n.getNotes() + " " + n.getCount());  // print note and its count.
+        for (Notes notes : ATM.getCurrencynotes()) {  // loop through all notes.
+            System.out.println(notes.getNotes() + " " + notes.getCount());  // print note and its count.
         }
     }
 
