@@ -37,7 +37,7 @@ The ATM management system that simulates banking operations such as:
 
 Clone the repository:
 ```bash
-git clone https://github.com/JP777-j/JAVA-CONSOLE-ATM-APPLICATION
+git clone https://github.com/Jai-Phiranesh/JAVA-CONSOLE-ATM-APPLICATION
 ```
 
 Change Directory
