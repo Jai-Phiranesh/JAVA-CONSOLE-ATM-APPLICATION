@@ -13,17 +13,19 @@ The ATM management system that simulates banking operations such as:
 ## Project Structure:
 ![Atm class structure](https://github.com/user-attachments/assets/ff90830e-3fc5-4b54-b3a7-6bf923ddbb38)
 
-## Console Execution
-https://github.com/user-attachments/assets/41988960-de5d-4652-97fc-237f6a9bb95e
-
-
-
 - **Account Class:** Manages user accounts with getters, setters, and basic data storage.
 - **Transaction Class:** Records transactions with details like type, user, and amount.
 - **ATMActions Class:** The core ATM logic managing user lists, admin lists, and notes.
 - **Actions Class:** Handles user and admin actions for the ATM operations.
 - **Notes Class:** Represents different denominations and their counts.
 - **Admin Action & User Action Classes:** Specific actions available for admin and users, including deposit and withdrawal operations.
+
+## Console Execution
+
+
+https://github.com/user-attachments/assets/c1d030f5-7d68-4b17-a031-714872b20f77
+
+
 
 ## Future Enhancements (Ideas for Contributors):
 - [ ] Implement a database backend for account storage instead of in-memory storage.
