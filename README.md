@@ -13,6 +13,10 @@ The ATM management system that simulates banking operations such as:
 ## Project Structure:
 ![Atm class structure](https://github.com/user-attachments/assets/ff90830e-3fc5-4b54-b3a7-6bf923ddbb38)
 
+## Console Execution
+https://github.com/user-attachments/assets/41988960-de5d-4652-97fc-237f6a9bb95e
+
+
 
 - **Account Class:** Manages user accounts with getters, setters, and basic data storage.
 - **Transaction Class:** Records transactions with details like type, user, and amount.
