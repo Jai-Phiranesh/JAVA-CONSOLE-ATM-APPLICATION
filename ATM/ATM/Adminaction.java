@@ -2,49 +2,23 @@ package ATM;
 
 import java.util.Scanner;
 
+
+import ATM.Actions.AdminActions;
 import ATM.Notes.Notes;
 
-public class Adminaction extends Action {
+public class Adminaction extends Action implements AdminActions {
+    public static Scanner scanner= new Scanner(System.in);
 
-    // Main operations for the admin like adding, deleting users, etc.
-    public static void operations(Admininfo adminObject, Adminaction adminAction, Scanner scanner) {
-        while (true) {
-            // Display admin menu options
-            System.out.println("\n1. Add User\n2. View All user\n3. Delete user\n4. view All Transaction\n5. Deposit cash in ATM\n6. Exit:");
-           
-            int userChoice = Integer.parseInt(scanner.nextLine());
-            switch (userChoice) {
-                case 1:
-                adminAction.adduser(scanner);
-                    break;  // Call add user
-                case 2:
-                adminAction.viewalluser();
-                    break;  // View all users
-                case 3:
-                adminAction.deleteuser(scanner);
-                    break;  // Delete user
-                case 4:
-                adminAction.viewalltransaction(scanner, adminObject);
-                    break;  // View transactions
-                case 5:
-                adminAction.depositcash(adminObject, scanner);
-                    break;  // Deposit cash in ATM
-                case 6:
-                    return;  // Exit
-                default:
-                    System.out.println("INVALID input:");  // Invalid input
-            }
-        }
-    }
+   
 
     // Add a new user to the system
     @Override
-    public void adduser(Scanner ob) {
+    public void adduser() {
        
         j:
         while (true) {
             System.out.println("Enter The Userid To Add Or 1 To Exit:");
-            String inputUserID = ob.nextLine();
+            String inputUserID = scanner.nextLine();
             if (inputUserID.equals("1")) break j;  // Exit option
             // Check if user already exists
             for (Account everyuser : ATM.getAccountlist()) {
@@ -58,7 +32,7 @@ public class Adminaction extends Action {
             }
             // Create new user
             System.out.println("Enter the password to add:");
-            String inputPassword = ob.nextLine();
+            String inputPassword = scanner.nextLine();
            
             ATM.getAccountlist().add(new Userinfo(inputUserID, inputPassword, 0));  // Add to user list
 
@@ -83,7 +57,7 @@ public class Adminaction extends Action {
 
     // Delete a user from the system
     @Override
-    public void deleteuser(Scanner scanner) {
+    public void deleteuser() {
         System.out.println("Enter the userid to delete ");
         
         String inuputUserID = scanner.nextLine();
@@ -106,9 +80,13 @@ public class Adminaction extends Action {
 
     // View all transactions or specific user transactions
     @Override
-    public void viewalltransaction(Scanner scanner, Admininfo adminObject) {
+    public void viewtransaction( Account account) {
         System.out.println("\n1.For specific user \n2.for all user \n3.Admin Transactions");
         String adminChoice = scanner.nextLine();
+        Admininfo adminObject= null;
+        if(account instanceof Admininfo){
+             adminObject=(Admininfo)account;
+        }
 
         if (adminChoice.equals("1")) {
             // Show specific user transactions
@@ -167,7 +145,12 @@ public class Adminaction extends Action {
 
     // Deposit cash into the ATM
     @Override
-    public void depositcash(Admininfo adminObject, Scanner scanner) {
+    public void depositcash(Account account) {
+
+        Admininfo adminObject= null;
+        if(account instanceof Admininfo){
+             adminObject=(Admininfo)account;
+        }
         System.out.println("\nEnter The Amount To Deposit In The ATM:");
         System.out.println("Enter the Amount:");
         String inamo = scanner.nextLine();

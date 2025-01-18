@@ -6,16 +6,17 @@ import java.util.Scanner;  // we need this to get input from the user.
 import ATM.Notes.Notes;
 
 public class ATMActions {  // this class contains actions related to the atm system.
+    public static Scanner scanner = new Scanner(System.in);  // scanner to get user input.
 
     // this method starts the atm system and handles user/admin login and actions.
     static void start() throws CloneNotSupportedException {
         ATM.iniCurrencynotes();  // initialize the currency notes.
-        ATM.getAccountlist().add(new Admininfo("1", "1"));//default admin
+        ATM.getAccountlist().add(new Admininfo("admin", "123"));//default admin
         ATM:
         while (true) {  // this loop keeps running until the user chooses to exit.
             System.out.println("enter the choice admin or user or exit: ");  // ask for input from user.
 
-            Scanner scanner = new Scanner(System.in);  // scanner to get user input.
+           
             String inputUSerorAdmin = scanner.nextLine();  // get input.
            
             Useraction userAction = new Useraction();  // create an object for user actions.
@@ -23,24 +24,24 @@ public class ATMActions {  // this class contains actions related to the atm sys
            // set the admin list.
 
             if (inputUSerorAdmin.equals("user")) {  // if user chooses 'user'.
-                Account currentUser = (Account) Action.login("user", scanner);  // login as user.
+                Account currentUser = (Account) adminAction.login("user");  // login as user.
                 if (currentUser == null) {  // if no user found.
                     System.out.println("no users found");
                 } else if (currentUser.getId() == null) {  // if wrong password.
                     System.out.println("wrong password");
                 } else {
-                    Useraction.operations((Userinfo) currentUser, userAction, scanner);  // call user operations.
+                   ATMActions.userOperations((Userinfo)currentUser, userAction); // call user operations.
                 }
 
             } else if (inputUSerorAdmin.equals("admin")) {  // if user chooses 'admin'.
                  // set the admin list again.
-                Account currentAdmin = (Account) Action.login("admin", scanner);  // login as admin.
+                Account currentAdmin = (Account) userAction.login("admin");  // login as admin.
                 if (currentAdmin == null) {  // if no admin found.
                     System.out.println("no users found");
                 } else if (currentAdmin.getId() == null) {  // if wrong password.
                     System.out.println("wrong password");
                 } else {
-                    Adminaction.operations((Admininfo) currentAdmin, adminAction, scanner);  // call admin operations.
+                    adminOperations( currentAdmin, adminAction);  // call admin operations.
                 }
             } else if (inputUSerorAdmin.equals("exit")) {  // if user wants to exit.
                 break ATM;  // exit the loop.
@@ -78,7 +79,7 @@ public class ATMActions {  // this class contains actions related to the atm sys
     }
 
     // this method checks if a user exists and if the password is correct.
-    public static Account checkuser(String id, Scanner scanner) throws CloneNotSupportedException {
+    public static Account checkuser(String id) throws CloneNotSupportedException {
 
 
         for (Account account : ATM.getAccountlist()) {
@@ -109,7 +110,7 @@ public class ATMActions {  // this class contains actions related to the atm sys
     }
 
     // this method checks if an admin exists and if the password is correct.
-    public static Account checkadmin(String id, Scanner scanner) throws CloneNotSupportedException {
+    public static Account checkadmin(String id) throws CloneNotSupportedException {
 
 
         for (Account account : ATM.getAccountlist()) {
@@ -147,6 +148,67 @@ public class ATMActions {  // this class contains actions related to the atm sys
     public static void currentnotes() {
         for (Notes notes : ATM.getCurrencynotes()) {  // loop through all notes.
             System.out.println(notes.getNotes() + " " + notes.getCount());  // print note and its count.
+        }
+    }
+
+
+    public static void adminOperations(Account adminObject, Adminaction adminAction) {
+        while (true) {
+            // Display admin menu options
+            System.out.println("\n1. Add User\n2. View All user\n3. Delete user\n4. view All Transaction\n5. Deposit cash in ATM\n6. Exit:");
+           
+            int userChoice = Integer.parseInt(scanner.nextLine());
+            switch (userChoice) {
+                case 1:
+                adminAction.adduser();
+                    break;  // Call add user
+                case 2:
+                adminAction.viewalluser();
+                    break;  // View all users
+                case 3:
+                adminAction.deleteuser();
+                    break;  // Delete user
+                case 4:
+                adminAction.viewtransaction( adminObject);
+                    break;  // View transactions
+                case 5:
+                adminAction.depositcash(adminObject);
+                    break;  // Deposit cash in ATM
+                case 6:
+                    return;  // Exit
+                default:
+                    System.out.println("INVALID input:");  // Invalid input
+            }
+        }
+    }
+
+    public static void userOperations(Userinfo currentUser, Useraction useraction) throws CloneNotSupportedException {
+        while (true) {
+            // Display options for the user to choose from
+            System.out.println("\n1. Check Balance\n2. Withdraw Cash\n3. Deposit Cash\n4. Change Pin\n5. Transaction\n6. Exit:");
+            String uc = scanner.nextLine();
+            int ucho = Integer.parseInt(uc);  // Parse user input
+            switch (ucho) {
+                case 1:
+                useraction.checkbalance(currentUser);  // Check balance
+                    break;
+                case 2:
+                useraction.withdrawcash(currentUser);  // Withdraw cash
+                    break;
+                case 3:
+                useraction.depositcash(currentUser);  // Deposit cash
+                    break;
+                case 4:
+                useraction.changepin(currentUser);  // Change PIN
+                    break;
+                case 5:
+                useraction.viewtransaction(currentUser); // View transactions
+                    break;
+                case 6:
+                    return;  // Exit
+                default:
+                    System.out.println("INVALID input:");  // Invalid input handling
+            }
         }
     }
 

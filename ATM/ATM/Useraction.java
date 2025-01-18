@@ -1,40 +1,12 @@
 package ATM;
+import ATM.Actions.UserActions;
 import ATM.Notes.Notes;
 
 import java.util.*;
-import java.util.Scanner;
-public class Useraction extends Action {
-
+public class Useraction extends Action implements UserActions {
+    
     // This method controls the menu and user actions like balance checking etc..
-    public static void operations(Userinfo currentUser, Useraction useraction, Scanner scob) throws CloneNotSupportedException {
-        while (true) {
-            // Display options for the user to choose from
-            System.out.println("\n1. Check Balance\n2. Withdraw Cash\n3. Deposit Cash\n4. Change Pin\n5. Transaction\n6. Exit:");
-            String uc = scob.nextLine();
-            int ucho = Integer.parseInt(uc);  // Parse user input
-            switch (ucho) {
-                case 1:
-                useraction.checkbalance(currentUser);  // Check balance
-                    break;
-                case 2:
-                useraction.withdrawcash(currentUser, scob);  // Withdraw cash
-                    break;
-                case 3:
-                useraction.userdepositcash(currentUser, scob);  // Deposit cash
-                    break;
-                case 4:
-                useraction.changepin(currentUser, scob);  // Change PIN
-                    break;
-                case 5:
-                useraction.userTransaction(currentUser);  // View transactions
-                    break;
-                case 6:
-                    return;  // Exit
-                default:
-                    System.out.println("INVALID input:");  // Invalid input handling
-            }
-        }
-    }
+   
 
     // Display user's current balance
     @Override
@@ -65,7 +37,7 @@ public class Useraction extends Action {
 
     // Main function to handle cash withdrawal
     @Override
-    public void withdrawcash(Userinfo currentUser, Scanner scanner) throws CloneNotSupportedException {
+    public void withdrawcash(Userinfo currentUser) throws CloneNotSupportedException {
         System.out.println("Enter The Amount To Withdraw:");
         long amount = Long.parseLong(scanner.nextLine());
         long finalamount = amount;  // Store the requested amount
@@ -86,7 +58,7 @@ public class Useraction extends Action {
             }
 
             // Process withdrawal while amount is still pending
-            while (amount != 0) {
+            if (amount != 0) {
                 for (Notes note : duplicate) {
                     String type = note.getNotes();  // Get current note type
                     switch (type) {
@@ -108,10 +80,10 @@ public class Useraction extends Action {
                     currentUser.setBalance(currentUser.getBalance() - finalamount);  // Deduct from user balance
                     System.out.println("YOUR BALANCE IS:" + currentUser.getBalance());
                     ATMActions.currentnotes();  // Show updated ATM notes
-                    break;
+                    return;
                 } else {
                     System.out.println("ENTER OTHER AMOUNT DENOMINATIONS DOES NOT MATCH");
-                    break;
+                    return;
                 }
             }
         }
@@ -119,7 +91,11 @@ public class Useraction extends Action {
 
     // Handle user cash deposit
     @Override
-    public void userdepositcash(Userinfo currentUser, Scanner scanner) {
+    public void depositcash(Account account) {
+        Userinfo currentUser= null;
+        if(account instanceof Userinfo){
+             currentUser=(Userinfo)account;
+        }
         System.out.println("Enter The Amount To Deposit:");
         String inputamount = scanner.nextLine();
 
@@ -179,7 +155,7 @@ public class Useraction extends Action {
 
     // Handle change of user PIN
     @Override
-    public void changepin(Userinfo currentUSer, Scanner scanner) {
+    public void changepin(Userinfo currentUSer) {
         System.out.println("Enter the password once again to change password:");
         String inp = scanner.nextLine();
         if (inp.equals(currentUSer.getPassword())) {
@@ -194,7 +170,7 @@ public class Useraction extends Action {
 
     // Display user transaction history
     @Override
-    public void userTransaction(Userinfo currentUser) {
+    public void viewtransaction(Account currentUser) {
         System.out.println("YOUR TRANSACTIONS ARE:");
         int i = 1;
         for (Transaction transaction : currentUser.getTransaction()) {//get the transaction of the current user

@@ -1,10 +1,10 @@
 package ATM;
-import java.util.ArrayList;
+
 
 public class Userinfo extends Account {//pojo class
 
    private double balance = 0;  // Account balance 
-   private static ArrayList<Transaction> usertransaction = new ArrayList<Transaction>();
+  
 
 
    public Userinfo(String id,String password,double balance) {
@@ -13,9 +13,7 @@ public class Userinfo extends Account {//pojo class
 
    }
 
-   public static ArrayList<Transaction> getUsertransaction() {
-       return usertransaction;
-   }
+   
 
   
 
