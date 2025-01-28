@@ -1,5 +1,6 @@
 package ATM;
 
+
 import java.util.Scanner;  // we need this to get input from the user.
 
 
@@ -7,7 +8,6 @@ import ATM.Notes.Notes;
 
 public class ATMActions {  // this class contains actions related to the atm system.
     public static Scanner scanner = new Scanner(System.in);  // scanner to get user input.
-
     // this method starts the atm system and handles user/admin login and actions.
     static void start() throws CloneNotSupportedException {
         ATM.iniCurrencynotes();  // initialize the currency notes.
@@ -15,6 +15,8 @@ public class ATMActions {  // this class contains actions related to the atm sys
         ATM:
         while (true) {  // this loop keeps running until the user chooses to exit.
             System.out.println("enter the choice admin or user or exit: ");  // ask for input from user.
+           
+            
 
            
             String inputUSerorAdmin = scanner.nextLine();  // get input.
@@ -112,13 +114,21 @@ public class ATMActions {  // this class contains actions related to the atm sys
     // this method checks if an admin exists and if the password is correct.
     public static Account checkadmin(String id) throws CloneNotSupportedException {
 
+        boolean foundUser=false;
+        Account account=null;
+        for (Account currentaccount : ATM.getAccountlist()) {
+            if (currentaccount instanceof Admininfo) {
+                if (id.equals(currentaccount.getId())) {
+                    account=currentaccount;
+                    foundUser=true;
+                    break;
+                }
 
-        for (Account account : ATM.getAccountlist()) {
-            if (account instanceof Admininfo) {
+            }}
 
 
         // if admin ID matches.
-
+        if(foundUser){
         System.out.println("enter the password :");  // ask for password.
         String inputPassword = scanner.nextLine();  // get input for password.
         for (int i = 0; i < 3; i++) {  // allow 3 attempts for password.
@@ -131,9 +141,12 @@ public class ATMActions {  // this class contains actions related to the atm sys
                     return account;
                 } else if (i == 2) {  // if failed 3 times.
                     return new Admininfo(null, null);  // return a blank admin object.
-                }}}
-            }
-        }
+                }}}}
+                else{
+                    return null;
+                }
+            
+        
 
 
         return null;  // if admin not found or password incorrect.
@@ -155,7 +168,7 @@ public class ATMActions {  // this class contains actions related to the atm sys
     public static void adminOperations(Account adminObject, Adminaction adminAction) {
         while (true) {
             // Display admin menu options
-            System.out.println("\n1. Add User\n2. View All user\n3. Delete user\n4. view All Transaction\n5. Deposit cash in ATM\n6. Exit:");
+            System.out.println("\n1. Add User\n2. View All user\n3. Delete user\n4. view All Transaction\n5. Deposit cash in ATM\n6.view atm balance\n7. Exit:");
            
             int userChoice = Integer.parseInt(scanner.nextLine());
             switch (userChoice) {
@@ -173,8 +186,10 @@ public class ATMActions {  // this class contains actions related to the atm sys
                     break;  // View transactions
                 case 5:
                 adminAction.depositcash(adminObject);
-                    break;  // Deposit cash in ATM
+                    break; 
                 case 6:
+                adminAction.atmBalance(); // Deposit cash in ATM
+                case 7:
                     return;  // Exit
                 default:
                     System.out.println("INVALID input:");  // Invalid input
@@ -188,6 +203,7 @@ public class ATMActions {  // this class contains actions related to the atm sys
             System.out.println("\n1. Check Balance\n2. Withdraw Cash\n3. Deposit Cash\n4. Change Pin\n5. Transaction\n6. Exit:");
             String uc = scanner.nextLine();
             int ucho = Integer.parseInt(uc);  // Parse user input
+           
             switch (ucho) {
                 case 1:
                 useraction.checkbalance(currentUser);  // Check balance

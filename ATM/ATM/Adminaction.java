@@ -206,4 +206,8 @@ public class Adminaction extends Action implements AdminActions {
             System.out.println("DENOMINATION AND AMOUNT NOT MATCH:");
         }
     }
+
+    public void atmBalance(){
+        System.out.println(ATM.getatmcash());
+    }
 }

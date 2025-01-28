@@ -9,6 +9,10 @@ public abstract  class Notes implements Cloneable {
         this.note=note;
      this.count=count;
     }
+
+    public Notes(){
+
+    }
     
     // Getter method for the note denomination
     public String getNotes() {
