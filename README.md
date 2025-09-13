@@ -3,6 +3,7 @@
 ## Overview
 A Java-based terminal application for ATM Management System. This project demonstrates core OOP concepts,and user authentication in a console environment.
 The ATM management system that simulates banking operations such as:
+
 - User Login
 - Balance Checking
 - Cash Withdrawal
